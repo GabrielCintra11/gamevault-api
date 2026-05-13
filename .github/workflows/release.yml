@@ -1,0 +1,25 @@
+name: Deploy GameVault API - Render
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Verificar tag detectada
+        run: echo "🏷️ Tag detectada - ${{ github.ref_name }}"
+
+      - name: Deploy no Render
+        run: |
+          echo "🚀 Iniciando deploy no Render..."
+          curl -X POST "https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/deploys" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json"
+          echo "✅ Deploy solicitado com sucesso!"
