@@ -82,8 +82,10 @@ let jogos = [
 app.get("/", (req, res) => {
   res.json({
     status: "🎮 GameVault API rodando com sucesso!",
-    versao: "1.0.0",
+    versao: "1.0.1",
+    autor: "Gabriel",
     totalJogos: jogos.length,
+    timestamp: new Date().toISOString(),
   });
 });
 
